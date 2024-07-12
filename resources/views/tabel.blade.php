@@ -3,11 +3,17 @@
 @section('content')
 <div class="container mt-5">
 	<h1 class="text-center my-3">Multiple Input dengan Gambar</h1>
+	@if(session('status'))
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+	  		{{ session('status') }}
+	  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	@endif
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header">
-					<a href="/create" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
+					<a href="/laptop/create" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
 				</div>
 				<div class="card-body">
 					<div class="responsive">
@@ -25,23 +31,23 @@
 							@foreach($data as $i)
 								<tr>
 									<td>{{ $loop->iteration }}</td>
-									<td><img src="{{ asset('storage/iamges/'.$i->gambar) }}" alt="" style="width: 100px;"></td>
-									<td>{{ $i->nama }}</td>
+									<td><img src="{{ asset('storage/images/'.$i->gambar) }}" alt="" style="width: 100px;"></td>
+									<td>{{ $i->merk }}</td>
 									<td>{{ $i->harga }}</td>
 									<td>
-										<form action="/{{ $i->id }}" method="post" class="d-inline mx-1">
+										<form action="/laptop/{{ $i->id }}" method="post" class="d-inline mx-1">
 											@csrf
 											@method('GET')
 											<button class="btn btn-success mb-1"><i class="fas fa-eye"></i></button>
 										</form>
 
-										<form action="/{{ $i->id }}/edit" method="post" class="d-inline mx-1">
+										<form action="/laptop/{{ $i->id }}/edit" method="post" class="d-inline mx-1">
 											@csrf
 											@method('GET')
 											<button class="btn btn-info mb-1" type="submit"><i class="fas fa-edit"></i></button>
 										</form>
 
-										<form action="/{{ $i->id }}" method="post" class="d-inline mx-1">
+										<form action="/laptop/{{ $i->id }}" method="post" class="d-inline mx-1">
 											@csrf
 											@method('DELETE')
 											<button class="btn btn-danger mb-1" type="submit"
