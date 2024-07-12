@@ -141,6 +141,7 @@ class LaptopController extends Controller
     {
         $data = Laptop::find($id);
         Fitur::where('kode', '=', $data->kode)->delete();
+        Storage::delete('public/images/'.$data->gambar);
         $data->delete();
 
         return redirect('/laptop')->with('status','Berhasil dihapus');
