@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Laptop;
 use App\Models\Fitur;
 
@@ -32,7 +33,27 @@ class LaptopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kode = date('dmyhis');
+
+        $gambarExt      = $request->gambar->getClientOriginalExtension();
+        $gambarStore    = 'gambar-'.time().'.'.$gambarExt;
+        $request->gambar->storeAs('public/images', $gambarStore);
+
+        $data           = new Laptop;
+        $data->merk     = $request->merk;
+        $data->gambar   = $gambarStore;
+        $data->harga    = $request->harga;
+        $data->kode     = $kode;
+        $data->save();
+
+        foreach ($request->fields as $key => $value) {
+            Fitur::create([
+                'fitur' => $value['fitur'],
+                'kode'  => $kode,
+            ]);
+        }
+
+        return redirect('/laptop')->with('status', 'Berhasil ditambahkan');
     }
 
     /**
@@ -40,7 +61,14 @@ class LaptopController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $laptop = Laptop::find($id);
+        $fitur  = Fitur::where('kode', '=', $laptop->kode)->get();
+
+        $data = [
+            'data' => $laptop,
+            'fitur' => $fitur,
+        ];
+        return view('detail')->with($data);
     }
 
     /**
@@ -48,7 +76,14 @@ class LaptopController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $laptop = Laptop::find($id);
+        $fitur  = Fitur::where('kode', '=', $laptop->kode)->get();
+
+        $data = [
+            'data' => $laptop,
+            'fitur' => $fitur,
+        ];
+        return view('edit')->with($data);
     }
 
     /**
@@ -56,7 +91,47 @@ class LaptopController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if ($request->hasFile('gambar')) {
+            $gambarExt      = $request->gambar->getClientOriginalExtension();
+            $gambarStore    = 'gambar-'.time().'.'.$gambarExt;
+            $request->gambar->storeAs('public/images', $gambarStore);
+        }
+
+        $data           = Laptop::find($id);
+        $data->merk     = $request->merk;
+        $data->harga    = $request->harga;
+
+        if ($request->hasFile('gambar')) {
+            Storage::delete('public/images/'.$data->gambar);
+            $data->gambar   = $gambarStore;
+        }else{
+            $data->gambar = $request->dataGambar;
+        }
+        $data->save();
+
+
+        if(!empty($request->update)){
+            foreach($request->update as $key => $value){
+                $fitur = Fitur::find($value['id']); 
+                if ($fitur) {
+                    $fitur->update([
+                        'fitur' => $value['fitur'],
+                        'kode' => $data->kode,
+                    ]);
+                }
+            }
+        }
+
+        if(!empty($request->add)){
+            foreach($request->add as $key => $value){
+                Fitur::create([
+                    'fitur' => $value['fitur'],
+                    'kode' => $data->kode
+                ]);
+            }
+        }
+
+        return redirect('/laptop')->with('status', 'Berhasil diperbarui');
     }
 
     /**
@@ -64,6 +139,17 @@ class LaptopController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Laptop::find($id);
+        Fitur::where('kode', '=', $data->kode)->delete();
+        $data->delete();
+
+        return redirect('/laptop')->with('status','Berhasil dihapus');
+    }
+
+    public function hapusFitur(string $id){
+        $data = Fitur::find($id);
+        $data->delete();
+
+        return response()->json(['status' => 'Fitur terhapus']);
     }
 }
