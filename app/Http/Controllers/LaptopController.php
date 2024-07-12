@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Laptop;
+use App\Models\Fitur;
 
 class LaptopController extends Controller
 {
@@ -11,7 +13,10 @@ class LaptopController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'data'  => Laptop::get(), 
+        ];
+        return view('tabel')->with($data);
     }
 
     /**
@@ -19,7 +24,7 @@ class LaptopController extends Controller
      */
     public function create()
     {
-        //
+        return view('tambah');
     }
 
     /**
