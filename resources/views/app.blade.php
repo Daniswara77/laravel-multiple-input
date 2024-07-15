@@ -21,8 +21,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
-        @yield('content')
+        <div class="container mt-5">
+            <h1 class="text-center my-3">Multiple Input dengan Gambar</h1>
+            @if(session('status'))
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
+                @yield('content')
+                
+        </div>
         @stack('script')
     </body>
 </html>

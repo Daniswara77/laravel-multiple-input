@@ -1,8 +1,6 @@
 @extends('app')
 
 @section('content')
-<div class="container mt-5">
-	<h1 class="text-center my-3">Multiple Input dengan Gambar</h1>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -51,7 +49,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 @endsection
 
 @push('script')

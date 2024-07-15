@@ -1,14 +1,6 @@
 @extends('app')
 
 @section('content')
-<div class="container mt-5">
-	<h1 class="text-center my-3">Multiple Input dengan Gambar</h1>
-	@if(session('status'))
-		<div class="alert alert-info alert-dismissible fade show" role="alert">
-	  		{{ session('status') }}
-	  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
-	@endif
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -65,5 +57,4 @@
 			</div>
 		</div>
 	</div>
-</div>
 @endsection
