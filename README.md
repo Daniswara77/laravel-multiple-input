@@ -1,5 +1,5 @@
 
-# Laravel Multiple Input dengan Gambar
+# Laravel Multiple Input dan Input Gambar
 ## Persiapan
 - php versi >= 8.2
 - composer
