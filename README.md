@@ -1,10 +1,11 @@
-# Persiapan
+
 # Laravel Multiple Input dengan Gambar
+## Persiapan
 - php versi >= 8.2
 - composer
 - laragon/xampp
 
-# Installasi
+## Installasi
 - unduh project atau clone
 - copy file .env.example menjadi .env
 - buka terminal dan arahkan ke direktori project
