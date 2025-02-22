@@ -15,7 +15,7 @@ class LaptopController extends Controller
     public function index()
     {
         $data = [
-            'data'  => Laptop::get(), 
+            'data'  => Laptop::get(),
         ];
         return view('tabel')->with($data);
     }
@@ -43,6 +43,7 @@ class LaptopController extends Controller
         $data->merk     = $request->merk;
         $data->gambar   = $gambarStore;
         $data->harga    = $request->harga;
+        $data->deskripsi    = $request->deskripsi;
         $data->kode     = $kode;
         $data->save();
 
@@ -100,6 +101,7 @@ class LaptopController extends Controller
         $data           = Laptop::find($id);
         $data->merk     = $request->merk;
         $data->harga    = $request->harga;
+        $data->deskripsi    = $request->deskripsi;
 
         if ($request->hasFile('gambar')) {
             Storage::delete('public/images/'.$data->gambar);
@@ -112,7 +114,7 @@ class LaptopController extends Controller
 
         if(!empty($request->update)){
             foreach($request->update as $key => $value){
-                $fitur = Fitur::find($value['id']); 
+                $fitur = Fitur::find($value['id']);
                 if ($fitur) {
                     $fitur->update([
                         'fitur' => $value['fitur'],

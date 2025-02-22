@@ -11,5 +11,5 @@ class Laptop extends Model
 
     protected $table = 'laptops';
 
-    protected $fillable = ['merk', 'gambar', 'harga', 'kode'];
+    protected $fillable = ['merk', 'gambar', 'deskripsi','harga', 'kode'];
 }

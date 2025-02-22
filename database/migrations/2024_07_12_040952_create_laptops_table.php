@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('laptops', function (Blueprint $table) {
             $table->id();
             $table->string('merk');
-            $table->string('gambar');
+            $table->string('deskripsi');
             $table->string('harga');
+            $table->string('gambar');
             $table->string('kode');
             $table->timestamps();
         });

@@ -22,7 +22,7 @@
     </head>
     <body>
         <div class="container mt-5">
-            <h1 class="text-center my-3">Multiple Input dengan Gambar</h1>
+            <h1 class="text-center my-3">Bisa Input Gambar Boss</h1>
             @if(session('status'))
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     {{ session('status') }}
@@ -31,7 +31,7 @@
             @endif
 
                 @yield('content')
-                
+
         </div>
         @stack('script')
     </body>
